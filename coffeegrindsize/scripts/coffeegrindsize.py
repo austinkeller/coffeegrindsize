@@ -642,8 +642,8 @@ class coffeegrindsize_GUI:
 		help_button.pack(side=RIGHT, padx=self.toolbar_padx, pady=self.toolbar_pady)
 		
 		# === Create a menu bar (File, Edit...) ===
-		menu = Menu(root)
-		root.config(menu=menu)
+		menu = Menu(self.master)
+		self.master.config(menu=menu)
 
 		#Create a FILE submenu
 		subMenu = Menu(menu)
@@ -3197,7 +3197,7 @@ class coffeegrindsize_GUI:
 	
 	#Method to quit user interface
 	def quit_gui(self):
-		root.quit()
+		self.master.quit()
 	
 	#Method to display help
 	def launch_help(self):
