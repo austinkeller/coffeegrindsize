@@ -8,9 +8,9 @@ import webbrowser
 import pandas as pd
 import os
 import sys
+import click
 
 import matplotlib
-matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import matplotlib.ticker as mticker
@@ -3203,21 +3203,25 @@ class coffeegrindsize_GUI:
 	def launch_help(self):
 		webbrowser.open("https://www.dropbox.com/s/m2af0aer2e17xie/coffee_grind_size_manual.pdf?dl=0")
 
-# === Main loop and call to the user interface window ===
+@click.command()
+def main():
+	"""An app to measure your coffee grind size distribution"""
+	#Invoke tkinter package
+	root = Tk()
+	root.protocol('WM_DELETE_WINDOW', root.quit)
 
-#Invoke tkinter package
-root = Tk()
-root.protocol('WM_DELETE_WINDOW', root.quit)
+	#Call the user interface
+	coffeegrindsize_GUI(root)
 
-#Call the user interface
-coffeegrindsize_GUI(root)
+	#Refresh user interface in a try statement to avoid UTF-8 crashes when the user interface tries to interpret unrecognized inputs like an Apple trackpad
+	while True:
+		try:
+			root.mainloop()
+			break
+		except UnicodeDecodeError:
+			pass
+		#except:
+		#	pdb.set_trace()
 
-#Refresh user interface in a try statement to avoid UTF-8 crashes when the user interface tries to interpret unrecognized inputs like an Apple trackpad
-while True:
-	try:
-		root.mainloop()
-		break
-	except UnicodeDecodeError:
-		pass
-	#except:
-	#	pdb.set_trace()
+if __name__ == '__main__':
+	main()
